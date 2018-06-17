@@ -51,7 +51,7 @@ public class FlyerStateInfo : MonoBehaviour
 
             case EState.UNCONTROLLABLE:
                 {
-                    Debug.Log(m_fUncontrollabletimer);
+                    //Debug.Log(m_fUncontrollabletimer);
                     m_fUncontrollabletimer -= Time.smoothDeltaTime;
 
                     if (m_fUncontrollabletimer <= 0.0f)

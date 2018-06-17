@@ -16,11 +16,11 @@ public class FlyerAnimation : MonoBehaviour
         DEAD,
     }
 
-    private EAnimState      m_eCurAnimState = EAnimState.NONE;
+    private EAnimState m_eCurAnimState = EAnimState.NONE;
 
     // Other Component
-    private Rigidbody   m_comRigidBody;
-    private Animator    m_comAnimaotr;
+    private Rigidbody m_comRigidBody;
+    private Animator m_comAnimaotr;
     private FlyerController m_comFlyerController;
 
     void Awake()
@@ -28,6 +28,12 @@ public class FlyerAnimation : MonoBehaviour
         m_comRigidBody = GetComponent<Rigidbody>();
         m_comAnimaotr = GetComponent<Animator>();
         m_comFlyerController = GetComponent<FlyerController>();
+
+        m_comRigidBody.constraints
+            = RigidbodyConstraints.FreezePositionY
+            | RigidbodyConstraints.FreezeRotationX
+            | RigidbodyConstraints.FreezeRotationY
+            | RigidbodyConstraints.FreezeRotationZ;
     }
 
     // Use this for initialization
@@ -54,20 +60,13 @@ public class FlyerAnimation : MonoBehaviour
 
             case EAnimState.IDLE:
                 m_comAnimaotr.CrossFade("FA_IdleFly", 0.2f);
-                
-                // (수정)
-                // 애니메이션 보간이 끝난 후 enabled 처리를 해야한다
-                m_comFlyerController.enabled = true;
-                m_comRigidBody.useGravity = false;
 
-                // 계속 추락 중이었다면
-                if(ePreviousAnimState == EAnimState.FALLING)
+                m_comRigidBody.constraints |= RigidbodyConstraints.FreezePositionY;
+
+                if (ePreviousAnimState == EAnimState.FALLING
+                    || ePreviousAnimState == EAnimState.DEAD)
                 {
-                    // (수정)
-                    // 바로 0 주지말고 자연스럽게 처리해야함.
-                    // 가속도 먼저 처리하고
-                    // 앞으로 가던 속력 보면서 처리 하자
-                    m_comRigidBody.velocity = new Vector3(0.0f, 0.0f, 0.0f);
+                    StartCoroutine(FallingAndDeadThenIdle());
                 }
                 break;
 
@@ -76,6 +75,8 @@ public class FlyerAnimation : MonoBehaviour
                 m_comAnimaotr.CrossFade("FA_Falling", 0.2f);
                 m_comFlyerController.enabled = false;
                 m_comRigidBody.useGravity = true;
+
+                m_comRigidBody.constraints &= ~RigidbodyConstraints.FreezePositionY;
                 break;
 
             case EAnimState.DEAD:
@@ -103,5 +104,20 @@ public class FlyerAnimation : MonoBehaviour
                 Debug.Log("33");
                 break;
         }
+    }
+
+    private IEnumerator FallingAndDeadThenIdle()
+    {
+        // (수정)
+        // 바로 0 주지말고 자연스럽게 처리해야함.
+        // 가속도 먼저 처리하고
+        // 앞으로 가던 속력 보면서 처리 하자
+
+        m_comRigidBody.velocity = new Vector3(0.0f, 0.0f, 0.0f);
+
+        yield return new WaitForSeconds(0.5f);
+
+        m_comFlyerController.enabled = true;
+        m_comRigidBody.useGravity = false;
     }
 }
