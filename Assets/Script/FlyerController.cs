@@ -24,12 +24,12 @@ public class FlyerController : MonoBehaviour {
 
     private void OnEnable()
     {
-        m_comRigidBody.isKinematic = false;
+
     }
 
     private void OnDisable()
     {
-        m_comRigidBody.isKinematic = true;
+
     }
 
     private void Start ()

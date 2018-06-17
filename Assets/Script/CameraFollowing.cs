@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraFollowing : MonoBehaviour {
-
+public class CameraFollowing : MonoBehaviour
+{
+    /*
     // (수정)
     // enum value 카메라 상태
     //public Vector3 CamRotation = new Vector3(45.0f, -45.0f, 0.0f);
@@ -38,4 +39,5 @@ public class CameraFollowing : MonoBehaviour {
         targetTranstorm.position = targetTranstorm.position + CamPosition;
         //targetTranstorm.localRotation = Quaternion.Euler(CamRotation);
     }
+    */
 }
