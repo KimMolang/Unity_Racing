@@ -874,7 +874,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_fMouseSensitivity: 5
-  m_fSpeed: 20
+  m_fMoveSpeed: 20
 --- !u!95 &595899799
 Animator:
   serializedVersion: 3

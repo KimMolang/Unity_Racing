@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Green_Tree
-  m_Shader: {fileID: 4800000, guid: e19c7c786e5aae2429bf15f5c899b7c9, type: 3}
+  m_Shader: {fileID: 4800000, guid: 08de5b0aa92c1d941ad3d54d7ab7b194, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
