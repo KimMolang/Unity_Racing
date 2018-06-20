@@ -88,11 +88,6 @@ public class InMapUIMgr : MonoBehaviour
             = rects[(int)UIRect.RECT_PROGRESSRATE_RATE].sizeDelta.y;
     }
 
-    private void FixedUpdate()
-    {
-        SetTime(Time.fixedDeltaTime);
-    }
-
     public void SetTotalLap(int _iTotalLap)
     {
         texts[(int)UIText.TEXT_TOTAL_LAP].text = "/" + _iTotalLap;
@@ -111,23 +106,22 @@ public class InMapUIMgr : MonoBehaviour
             , ORIGINE_RECT_PROGRESSRATE_RATE_SIZE_Y * _fRate);
     }
 
-    // 따로 클래스 빼야할 듯
-    float gameTimer = 0.0f;
-    int timeMinit = 0;
-    public void SetTime(float _fTime)
+    public void SetTime(int _iMinute, float _fSecond)
     {
-        gameTimer += _fTime;
-
-        if(gameTimer >= 60.0f)
+        if(_fSecond > 10.0f)
         {
-            ++timeMinit;
-            gameTimer -= 60.0f;
+            texts[(int)UIText.TEXT_TIME].text
+                = _iMinute.ToString("D2")
+                + " : "
+                + _fSecond.ToString("F2");
         }
-
-        float fForSecondPoint = gameTimer;
-
-        texts[(int)UIText.TEXT_TIME].text
-            = timeMinit.ToString("D2") + " : "
-            + gameTimer.ToString("F2");
+        else
+        {
+            texts[(int)UIText.TEXT_TIME].text
+                = _iMinute.ToString("D2")
+                + " : 0"
+                + _fSecond.ToString("F2");
+        }
+        
     }
 }
