@@ -6,13 +6,13 @@ using UnityEngine;
 public class FlyerCollider : MonoBehaviour
 {
     // Other Component
-    private FlyerAnimation m_comFlyerAnimation;
-    private FlyerStateInfo m_comFlyerStateInfo;
+    private FlyerAnimation flyerAnimation;
+    private FlyerStateInfo flyerStateInfo;
 
     void Awake()
     {
-        m_comFlyerAnimation = GetComponent<FlyerAnimation>();
-        m_comFlyerStateInfo = GetComponent<FlyerStateInfo>();
+        flyerAnimation = GetComponent<FlyerAnimation>();
+        flyerStateInfo = GetComponent<FlyerStateInfo>();
     }
 
     // Use this for initialization
@@ -32,8 +32,20 @@ public class FlyerCollider : MonoBehaviour
         switch (other.tag)
         {
             case "Feather_Basic":
+                Destroy(other.gameObject);
                 break;
+
             case "Feather_Full":
+                Destroy(other.gameObject);
+                break;
+
+            case "ProgressRateZone_StartOrEnd":
+                ProgressRateMgr.getInstance.UpdateCurLap(other);
+                ProgressRateMgr.getInstance.UpdateCurProgressRateZoneNum(other.gameObject);
+                break;
+
+            case "ProgressRateZone":
+                ProgressRateMgr.getInstance.UpdateCurProgressRateZoneNum(other.gameObject);
                 break;
         }
     }
@@ -43,8 +55,8 @@ public class FlyerCollider : MonoBehaviour
         switch (other.collider.tag)
         {
             case "Floor":
-                if(m_comFlyerStateInfo.GetCurState() == FlyerStateInfo.EState.UNCONTROLLABLE)
-                    m_comFlyerAnimation.SetCurAnimState(FlyerAnimation.EAnimState.DEAD);
+                if(flyerStateInfo.GetCurState() == FlyerStateInfo.StateID.UNCONTROLLABLE)
+                    flyerAnimation.SetCurAnimState(FlyerAnimation.AnimStateID.DEAD);
                 break;
         }
     }

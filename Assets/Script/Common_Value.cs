@@ -8,7 +8,7 @@ static class VALUE_GAME_PLAY
 
 namespace Test
 {
-    public enum EOMG
+    public enum OMG
     {
         NONE    = 0,
 

@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Floor
+  - ProgressRateZone_StartOrEnd
+  - ProgressRateZone
   layers:
   - Default
   - TransparentFX

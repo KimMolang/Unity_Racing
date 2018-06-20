@@ -7,7 +7,7 @@ using UnityEngine;
 [RequireComponent(typeof(FlyerController))]
 public class FlyerAnimation : MonoBehaviour
 {
-    public enum EAnimState
+    public enum AnimStateID
     {
         NONE,
 
@@ -16,20 +16,20 @@ public class FlyerAnimation : MonoBehaviour
         DEAD,
     }
 
-    private EAnimState m_eCurAnimState = EAnimState.NONE;
+    private AnimStateID curAnimState = AnimStateID.NONE;
 
     // Other Component
-    private Rigidbody m_comRigidBody;
-    private Animator m_comAnimaotr;
-    private FlyerController m_comFlyerController;
+    private Rigidbody rigidBody;
+    private Animator animaotr;
+    private FlyerController flyerController;
 
     void Awake()
     {
-        m_comRigidBody = GetComponent<Rigidbody>();
-        m_comAnimaotr = GetComponent<Animator>();
-        m_comFlyerController = GetComponent<FlyerController>();
+        rigidBody = GetComponent<Rigidbody>();
+        animaotr = GetComponent<Animator>();
+        flyerController = GetComponent<FlyerController>();
 
-        m_comRigidBody.constraints
+        rigidBody.constraints
             = RigidbodyConstraints.FreezePositionY
             | RigidbodyConstraints.FreezeRotationX
             | RigidbodyConstraints.FreezeRotationY
@@ -48,59 +48,59 @@ public class FlyerAnimation : MonoBehaviour
 
     }
 
-    public void SetCurAnimState(EAnimState _eAnimState)
+    public void SetCurAnimState(AnimStateID _AnimStateID)
     {
-        EAnimState ePreviousAnimState = m_eCurAnimState;
-        m_eCurAnimState = _eAnimState;
+        AnimStateID ePreviousAnimState = curAnimState;
+        curAnimState = _AnimStateID;
 
-        switch (m_eCurAnimState)
+        switch (curAnimState)
         {
-            case EAnimState.NONE:
+            case AnimStateID.NONE:
                 break;
 
-            case EAnimState.IDLE:
-                m_comAnimaotr.CrossFade("FA_IdleFly", 0.2f);
+            case AnimStateID.IDLE:
+                animaotr.CrossFade("FA_IdleFly", 0.2f);
 
-                m_comRigidBody.constraints |= RigidbodyConstraints.FreezePositionY;
+                rigidBody.constraints |= RigidbodyConstraints.FreezePositionY;
 
-                if (ePreviousAnimState == EAnimState.FALLING
-                    || ePreviousAnimState == EAnimState.DEAD)
+                if (ePreviousAnimState == AnimStateID.FALLING
+                    || ePreviousAnimState == AnimStateID.DEAD)
                 {
                     StartCoroutine(FallingAndDeadThenIdle());
                 }
                 break;
 
-            case EAnimState.FALLING:
-                //m_comAnimaotr.Play("FA_Falling");
-                m_comAnimaotr.CrossFade("FA_Falling", 0.2f);
-                m_comFlyerController.enabled = false;
-                m_comRigidBody.useGravity = true;
+            case AnimStateID.FALLING:
+                //animaotr.Play("FA_Falling");
+                animaotr.CrossFade("FA_Falling", 0.2f);
+                flyerController.enabled = false;
+                rigidBody.useGravity = true;
 
-                m_comRigidBody.constraints &= ~RigidbodyConstraints.FreezePositionY;
+                rigidBody.constraints &= ~RigidbodyConstraints.FreezePositionY;
                 break;
 
-            case EAnimState.DEAD:
-                //m_comAnimaotr.Play("FA_Dead");
-                m_comAnimaotr.CrossFade("FA_Dead", 0.2f);
-                m_comRigidBody.useGravity = false;
-                m_comRigidBody.velocity = new Vector3(0.0f, 0.0f, 0.0f);
+            case AnimStateID.DEAD:
+                //animaotr.Play("FA_Dead");
+                animaotr.CrossFade("FA_Dead", 0.2f);
+                rigidBody.useGravity = false;
+                rigidBody.velocity = new Vector3(0.0f, 0.0f, 0.0f);
                 break;
         }
     }
 
     private void EndAnimation()
     {
-        switch (m_eCurAnimState)
+        switch (curAnimState)
         {
-            case EAnimState.NONE:
+            case AnimStateID.NONE:
                 Debug.Log("11");
                 break;
 
-            case EAnimState.FALLING:
+            case AnimStateID.FALLING:
                 Debug.Log("22");
                 break;
 
-            case EAnimState.DEAD:
+            case AnimStateID.DEAD:
                 Debug.Log("33");
                 break;
         }
@@ -113,11 +113,11 @@ public class FlyerAnimation : MonoBehaviour
         // 가속도 먼저 처리하고
         // 앞으로 가던 속력 보면서 처리 하자
 
-        m_comRigidBody.velocity = new Vector3(0.0f, 0.0f, 0.0f);
+        rigidBody.velocity = new Vector3(0.0f, 0.0f, 0.0f);
 
         yield return new WaitForSeconds(0.5f);
 
-        m_comFlyerController.enabled = true;
-        m_comRigidBody.useGravity = false;
+        flyerController.enabled = true;
+        rigidBody.useGravity = false;
     }
 }

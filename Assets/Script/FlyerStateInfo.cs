@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(FlyerAnimation))]
 public class FlyerStateInfo : MonoBehaviour
 {
-    public enum EState
+    public enum StateID
     {
         NONE,
 
@@ -13,14 +13,14 @@ public class FlyerStateInfo : MonoBehaviour
         UNCONTROLLABLE,
     }
 
-    private EState m_eCurState = EState.NONE;
-    public EState GetCurState() { return m_eCurState; }
+    private StateID curState = StateID.NONE;
+    public StateID GetCurState() { return curState; }
 
     // Other Component
     private FlyerAnimation m_comFlyerAnimation;
 
-    [SerializeField] private int m_iHP = VALUE_GAME_PLAY.MAX_HP_BASIC;
-    private float m_fUncontrollabletimer  = 0.0f;
+    [SerializeField] private int HP = VALUE_GAME_PLAY.MAX_HP_BASIC;
+    private float uncontrollableTimer  = 0.0f;
 
     void Awake()
     {
@@ -41,37 +41,37 @@ public class FlyerStateInfo : MonoBehaviour
 
     private void UpdatTotalState()
     {
-        switch(m_eCurState)
+        switch(curState)
         {
-           case EState.NONE:
+           case StateID.NONE:
                 break;
 
-           case EState.NOMAL:
+           case StateID.NOMAL:
                 break;
 
-            case EState.UNCONTROLLABLE:
+            case StateID.UNCONTROLLABLE:
                 {
-                    //Debug.Log(m_fUncontrollabletimer);
-                    m_fUncontrollabletimer -= Time.smoothDeltaTime;
+                    //Debug.Log(uncontrollableTimer);
+                    uncontrollableTimer -= Time.smoothDeltaTime;
 
-                    if (m_fUncontrollabletimer <= 0.0f)
+                    if (uncontrollableTimer <= 0.0f)
                     {
-                        m_eCurState = EState.NOMAL;
-                        m_comFlyerAnimation.SetCurAnimState(FlyerAnimation.EAnimState.IDLE);
+                        curState = StateID.NOMAL;
+                        m_comFlyerAnimation.SetCurAnimState(FlyerAnimation.AnimStateID.IDLE);
 
-                        m_iHP = VALUE_GAME_PLAY.MAX_HP_BASIC;
-                        m_fUncontrollabletimer = 0.0f;
+                        HP = VALUE_GAME_PLAY.MAX_HP_BASIC;
+                        uncontrollableTimer = 0.0f;
                     }
                 }
                 break;
         }
         
 
-        if (m_iHP <= 0 && m_eCurState != EState.UNCONTROLLABLE)
+        if (HP <= 0 && curState != StateID.UNCONTROLLABLE)
         {
-            m_eCurState = EState.UNCONTROLLABLE;
-            m_comFlyerAnimation.SetCurAnimState(FlyerAnimation.EAnimState.FALLING);
-            m_fUncontrollabletimer = VALUE_GAME_PLAY.MAX_UNCONTROLLABLE_TIME_FALLING;
+            curState = StateID.UNCONTROLLABLE;
+            m_comFlyerAnimation.SetCurAnimState(FlyerAnimation.AnimStateID.FALLING);
+            uncontrollableTimer = VALUE_GAME_PLAY.MAX_UNCONTROLLABLE_TIME_FALLING;
         }
     }
 }
