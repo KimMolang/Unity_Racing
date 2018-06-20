@@ -154,7 +154,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1646342857298834, guid: 39cf9ee04d975ba4ebe2e406f2226bf3, type: 2}
       propertyPath: m_TagString
-      value: ProgressRateZone_StartOrEnd
+      value: ProgressRateZone
       objectReference: {fileID: 0}
     - target: {fileID: 1646342857298834, guid: 39cf9ee04d975ba4ebe2e406f2226bf3, type: 2}
       propertyPath: m_Name
@@ -184,6 +184,7 @@ GameObject:
   - component: {fileID: 213535308}
   - component: {fileID: 213535307}
   - component: {fileID: 213535306}
+  - component: {fileID: 213535309}
   m_Layer: 0
   m_Name: InMapMgrs
   m_TagString: Untagged
@@ -235,6 +236,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 747ee5202b745154082dd76f51e8633d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &213535309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 213535304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 446b2ef934fec924bb42b978d1a9c57c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &272029570
@@ -712,7 +724,7 @@ GameObject:
   - component: {fileID: 643761762}
   m_Layer: 0
   m_Name: ProgressRateZone (8)
-  m_TagString: ProgressRateZone_StartOrEnd
+  m_TagString: ProgressRateZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1146,7 +1158,7 @@ GameObject:
   - component: {fileID: 863471767}
   m_Layer: 0
   m_Name: ProgressRateZone
-  m_TagString: ProgressRateZone_StartOrEnd
+  m_TagString: ProgressRateZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1687,7 +1699,7 @@ GameObject:
   - component: {fileID: 1273563627}
   m_Layer: 0
   m_Name: ProgressRateZone (12)
-  m_TagString: ProgressRateZone_StartOrEnd
+  m_TagString: ProgressRateZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1770,7 +1782,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1646342857298834, guid: 39cf9ee04d975ba4ebe2e406f2226bf3, type: 2}
       propertyPath: m_TagString
-      value: ProgressRateZone_StartOrEnd
+      value: ProgressRateZone
       objectReference: {fileID: 0}
     - target: {fileID: 1646342857298834, guid: 39cf9ee04d975ba4ebe2e406f2226bf3, type: 2}
       propertyPath: m_Name
@@ -2305,7 +2317,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1646342857298834, guid: 39cf9ee04d975ba4ebe2e406f2226bf3, type: 2}
       propertyPath: m_TagString
-      value: ProgressRateZone_StartOrEnd
+      value: ProgressRateZone
       objectReference: {fileID: 0}
     - target: {fileID: 1646342857298834, guid: 39cf9ee04d975ba4ebe2e406f2226bf3, type: 2}
       propertyPath: m_Name
@@ -2493,7 +2505,7 @@ GameObject:
   - component: {fileID: 1990675279}
   m_Layer: 0
   m_Name: ProgressRateZone (4)
-  m_TagString: ProgressRateZone_StartOrEnd
+  m_TagString: ProgressRateZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

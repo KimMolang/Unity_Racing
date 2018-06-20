@@ -177,7 +177,7 @@ public class ProgressRateMgr : MonoBehaviour {
         else
             --curProgressRateZoneNum;
 
-        Debug.Log("curProgressRateZoneNum : " + curProgressRateZoneNum);
+        //Debug.Log("curProgressRateZoneNum : " + curProgressRateZoneNum);
     }
 
     private void UpdateProgressRate()
@@ -199,6 +199,7 @@ public class ProgressRateMgr : MonoBehaviour {
 
         int iIndexOfList
             = curProgressRateZoneNum % progressRateZoneList.Count;
+        //Debug.Log("iIndexOfList : " + iIndexOfList);
 
         ProgressRateZone previousZone
             = (ProgressRateZone)progressRateZoneList[iIndexOfList];
@@ -213,11 +214,20 @@ public class ProgressRateMgr : MonoBehaviour {
         float fTotalCumulativeLengthInOnlyOneTrack
             = (float)cumulativeLengthList[cumulativeLengthList.Count - 1];
 
-        curProgressRate = ((float)cumulativeLengthList[iIndexOfList] + fLengthInCurZone
-            + (fTotalCumulativeLengthInOnlyOneTrack * curLapNum))
+
+        float fCumulativeLength = 0;
+        if(iIndexOfList > 0)
+            fCumulativeLength = (float)cumulativeLengthList[iIndexOfList - 1];
+
+        curProgressRate = (fCumulativeLength + fLengthInCurZone + (fTotalCumulativeLengthInOnlyOneTrack * curLapNum))
             / fTotalCumulativeLengthInOnlyOneTrack * MapInfoMgr.getInstance.totalLap;
 
-        //Debug.Log("curProgressRate : " + curProgressRate);
+        //Debug.Log("============================");
+        //Debug.Log((float)cumulativeLengthList[iIndexOfList] + fLengthInCurZone
+        //    + (fTotalCumulativeLengthInOnlyOneTrack * curLapNum));
+        //Debug.Log(fTotalCumulativeLengthInOnlyOneTrack * MapInfoMgr.getInstance.totalLap);
+        //Debug.Log("============================");
+        ////Debug.Log("curProgressRate : " + curProgressRate);
         InMapUIMgr.getInstance.SetProgressRateBar(curProgressRate);
     }
 }
