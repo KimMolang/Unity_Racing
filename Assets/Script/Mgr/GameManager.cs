@@ -83,47 +83,47 @@ public class GameManager : MonoBehaviour
         ProgressRateMgr.getInstance.Init();
     }
 
-    void Update()
-    {
-        switch (currentScreenID)
-        {
-            #region ** Basic Framework **
-            case ScreenID.NONE:
-                switch (currentScreenState)
-                {
-                    case ScreenState.NONE: break;
-                    case ScreenState.START: currentScreenState = ScreenState.WORK; break;
-                    case ScreenState.WORK: break;
-                    case ScreenState.END:
-                        SetCurrentScreenIDAndState(
-                            GameManager.ScreenID.NONE,
-                            GameManager.ScreenState.NONE);
-                        break;
-                }
-                break;
-            #endregion
-            #region ScreenID.IN_MAP
-            case ScreenID.IN_MAP:
-                switch (currentScreenState)
-                {
-                    case ScreenState.NONE: break;
+    //void Update()
+    //{
+    //    switch (currentScreenID)
+    //    {
+    //        #region ** Basic Framework **
+    //        case ScreenID.NONE:
+    //            switch (currentScreenState)
+    //            {
+    //                case ScreenState.NONE: break;
+    //                case ScreenState.START: currentScreenState = ScreenState.WORK; break;
+    //                case ScreenState.WORK: break;
+    //                case ScreenState.END:
+    //                    SetCurrentScreenIDAndState(
+    //                        GameManager.ScreenID.NONE,
+    //                        GameManager.ScreenState.NONE);
+    //                    break;
+    //            }
+    //            break;
+    //        #endregion
+    //        #region ScreenID.IN_MAP
+    //        case ScreenID.IN_MAP:
+    //            switch (currentScreenState)
+    //            {
+    //                case ScreenState.NONE: break;
 
-                    case ScreenState.START:
-                        //MapInfoMgr.getInstance.Init();
-                        //ProgressRateMgr.getInstance.Init();
-                        currentScreenState = ScreenState.WORK;
-                        break;
+    //                case ScreenState.START:
+    //                    //MapInfoMgr.getInstance.Init();
+    //                    //ProgressRateMgr.getInstance.Init();
+    //                    currentScreenState = ScreenState.WORK;
+    //                    break;
 
-                    case ScreenState.WORK:
-                        break;
+    //                case ScreenState.WORK:
+    //                    break;
 
-                    case ScreenState.END:
-                        break;
-                }
-                break;
-            #endregion
-        }
-    }
+    //                case ScreenState.END:
+    //                    break;
+    //            }
+    //            break;
+    //        #endregion
+    //    }
+    //}
 
     //public void SetBGM(ScreenID screenId, int chapterNum)
     //{

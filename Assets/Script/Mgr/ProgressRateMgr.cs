@@ -140,9 +140,9 @@ public class ProgressRateMgr : MonoBehaviour {
 
         // curLapNum
         if (( curProgressRateZoneNum
-            == (iTotalProgressZoneNum * (curLapNum + 1)) - 1 )
-            && ( zoneCollided.GetProgressRateZoneIndex() + (curLapNum * iTotalProgressZoneNum)
-            == curProgressRateZoneNum + 1 )) // Last Area In only one track
+            == (iTotalProgressZoneNum * (curLapNum + 1)) - 1 ) )
+            //&& ( zoneCollided.GetProgressRateZoneIndex() + (curLapNum * iTotalProgressZoneNum)
+            //== curProgressRateZoneNum + 1 )) // Last Area In only one track
         {
             ++curLapNum;
         }
@@ -159,8 +159,11 @@ public class ProgressRateMgr : MonoBehaviour {
 
     public void UpdateCurProgressRateZoneNum(GameObject _objCollided)
     {
-        int iTotalProgressZoneNum = progressRateZoneList.Count;
+        if (curLapNum == MapInfoMgr.getInstance.totalLap)
+            return;
 
+
+        int iTotalProgressZoneNum = progressRateZoneList.Count;
 
         ProgressRateZone zoneCollided
             = _objCollided.GetComponent<ProgressRateZone>();
@@ -174,7 +177,7 @@ public class ProgressRateMgr : MonoBehaviour {
         else
             --curProgressRateZoneNum;
 
-        //Debug.Log("curProgressRateZoneNum : " + curProgressRateZoneNum);
+        Debug.Log("curProgressRateZoneNum : " + curProgressRateZoneNum);
     }
 
     private void UpdateProgressRate()
