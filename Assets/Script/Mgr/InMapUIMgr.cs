@@ -59,6 +59,7 @@ public class InMapUIMgr : MonoBehaviour
     //private Image[] images;
     private RectTransform[] rects;
 
+
     public void Init()
     {
         // texts
@@ -69,7 +70,7 @@ public class InMapUIMgr : MonoBehaviour
         texts[(int)UIText.TEXT_TOTAL_LAP]
             = GameObject.Find("Text_TotalLap").GetComponent<Text>();
         texts[(int)UIText.TEXT_TIME]
-            = GameObject.Find("Image_Grade").GetComponent<Text>();
+            = GameObject.Find("Text_CurTime").GetComponent<Text>();
 
         //// images
         //images = new Image[(int)UIImage.IMAGE_NUM];
@@ -89,7 +90,7 @@ public class InMapUIMgr : MonoBehaviour
 
     private void FixedUpdate()
     {
-
+        SetTime(Time.fixedDeltaTime);
     }
 
     public void SetTotalLap(int _iTotalLap)
@@ -108,5 +109,25 @@ public class InMapUIMgr : MonoBehaviour
         rects[(int)UIRect.RECT_PROGRESSRATE_RATE].sizeDelta
             = new Vector2(rects[(int)UIRect.RECT_PROGRESSRATE_RATE].sizeDelta.x
             , ORIGINE_RECT_PROGRESSRATE_RATE_SIZE_Y * _fRate);
+    }
+
+    // 따로 클래스 빼야할 듯
+    float gameTimer = 0.0f;
+    int timeMinit = 0;
+    public void SetTime(float _fTime)
+    {
+        gameTimer += _fTime;
+
+        if(gameTimer >= 60.0f)
+        {
+            ++timeMinit;
+            gameTimer -= 60.0f;
+        }
+
+        float fForSecondPoint = gameTimer;
+
+        texts[(int)UIText.TEXT_TIME].text
+            = timeMinit.ToString("D2") + " : "
+            + gameTimer.ToString("F2");
     }
 }
