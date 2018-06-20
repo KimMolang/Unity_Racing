@@ -27,6 +27,7 @@ public class FlyerCollider : MonoBehaviour
 
     }
 
+    private bool isInProgressRateZone = false;
     private void OnTriggerEnter(Collider other)
     {
         switch (other.tag)
@@ -40,12 +41,31 @@ public class FlyerCollider : MonoBehaviour
                 break;
 
             case "ProgressRateZone_StartOrEnd":
-                ProgressRateMgr.getInstance.UpdateCurLap(other);
-                ProgressRateMgr.getInstance.UpdateCurProgressRateZoneNum(other.gameObject);
+                if( isInProgressRateZone == false )
+                {
+                    ProgressRateMgr.getInstance.UpdateCurLap(other);
+                    ProgressRateMgr.getInstance.UpdateCurProgressRateZoneNum(other.gameObject);
+                }
+                isInProgressRateZone = true;
                 break;
 
             case "ProgressRateZone":
-                ProgressRateMgr.getInstance.UpdateCurProgressRateZoneNum(other.gameObject);
+                if (isInProgressRateZone == false)
+                {
+                    ProgressRateMgr.getInstance.UpdateCurProgressRateZoneNum(other.gameObject);
+                }
+                isInProgressRateZone = true;
+                break;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        switch (other.tag)
+        {
+            case "ProgressRateZone_StartOrEnd":
+            case "ProgressRateZone":
+                isInProgressRateZone = false;
                 break;
         }
     }
